@@ -1,0 +1,44 @@
+{
+    "main" : "./lib/student.js",
+
+    "name": "appModule",
+
+    "description": "it's just a module test.",
+
+    "version" : "0.0.1",
+
+
+    "keywords" : [
+        "test", 
+        "sample"
+    ],
+
+
+    "maintainers": [
+        {
+            "name" : "weijing", 
+            "email" : "huangweijinglove@gmail.com"
+        }
+    ],
+
+
+    "contributors" : [
+    ],
+    "bugs" : {
+    },
+    "licenses" : [
+        {
+          "type" : "MIT",
+          "web" : "www.weobot.com"
+        }
+    ],
+    "repositories" : [
+        {
+            "type" : "git",
+            "url" : "www.weobot.com"
+        }
+    ],
+    "dependencies" : {
+      "wbkit" : "1.2"
+    }
+}

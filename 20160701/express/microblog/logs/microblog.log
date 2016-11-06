@@ -1,0 +1,6 @@
+
+> microblog@0.0.0 start /home/huangweijing/Documents/dev/nodejs/20160701/express/microblog
+> node ./bin/www
+
+[0mGET /test/sub [32m200 [0m354.783 ms - 165[0m
+[0mGET /stylesheets/style.css [36m304 [0m2.209 ms - -[0m
