@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xlmns:ng="http://angularjs.org">
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <section ng-view></section>
+    <!--
+    <section ng-include="'/example/example.client.view.html'">
+    </section>
+    <section>
+        <input type="text" id="text1" ng-model="name">
+        <input type="text" id="text2" ng-model="name">
+    </section>
+    -->
+    <script type="text/javascript" src="/lib/angular/angular.js"></script>
+    <script type="text/javascript" src="/lib/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="/javascripts/example/example.client.module.js"></script>
+    <script type="text/javascript" src="/javascripts/application.js"></script>
+    <script type="text/javascript" src="/router/example.client.routes.js"></script>
+    <script type="text/javascript" src="/controller/example.client.controller.js"></script>
+  </body>
+</html>
