@@ -4,20 +4,65 @@ var path = require("path")
 //srcPathを検索する
 //全角スペース、空白スペースで隔てられるキーワードは
 //分割して検索を行う
-exports.searchFile = function(srcPath, searchPattern) {
+exports.searchFile = function(srcPath, searchPattern, callback) {
 
     //console.log(srcPath);
-
     var result = [];
 
     //フォルダの場合、子供パスを検索し、結果をサーチする
     if(fs.statSync(srcPath).isDirectory()) {
 
+        srcPath = srcPath.endsWith("/") ? srcPath : srcPath + "/";
+
+        //var childPaths = [];
+        fs.readdir(srcPath, function(err, data){
+            //childPaths = data;
+            searchChild(data);
+        });
+        var searchChild = function(cpArr) {
+
+            cpArr.forEach(function(childPath) {
+
+                exports.searchFile(srcPath + childPath, searchPattern, function(data){
+                    result = result.concat(data);
+                    callback(result);
+                    
+                });
+            
+            });
+
+        }
+
+    } else {
+        var matchResult = matchFile(srcPath, searchPattern);
+        if(matchResult != 0) {
+            result.push(srcPath);
+            callback(result);
+        }
+
+    }
+    //return result;
+
+};
+
+//srcPathを検索する
+//全角スペース、空白スペースで隔てられるキーワードは
+//分割して検索を行う
+exports.searchFileSync = function(srcPath, searchPattern) {
+
+    //console.log(srcPath);
+    var result = [];
+
+    //フォルダの場合、子供パスを検索し、結果をサーチする
+    if(fs.statSync(srcPath).isDirectory()) {
+
+        srcPath = srcPath.endsWith("/") ? srcPath : srcPath + "/";
+
         var childPaths = fs.readdirSync(srcPath);
         childPaths.forEach(function(childPath) {
 
             result = result.concat(
-                exports.searchFile(srcPath + "/" + childPath, searchPattern));
+                exports.searchFile(srcPath + childPath, searchPattern));
         
         });
 
