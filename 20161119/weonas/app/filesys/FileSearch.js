@@ -14,34 +14,37 @@ exports.searchFile = function(srcPath, searchPattern, callback) {
 
         srcPath = srcPath.endsWith("/") ? srcPath : srcPath + "/";
 
-        //var childPaths = [];
+        var loopedItems = [];
         fs.readdir(srcPath, function(err, data){
-            //childPaths = data;
-            searchChild(data);
-        });
-        var searchChild = function(cpArr) {
 
-            cpArr.forEach(function(childPath) {
+            if(data.length == 0) {
+                callback(result);
+            }
 
-                exports.searchFile(srcPath + childPath, searchPattern, function(data){
-                    result = result.concat(data);
-                    callback(result);
-                    
+            for(var i = 0; i < data.length; i++) {
+                //console.log(data[i]);
+                
+                exports.searchFile(srcPath + data[i], searchPattern, function(d){
+                    result = result.concat(d);
+                    loopedItems.push(data[i]);
+
+                    //when encounter the final item
+                    if(loopedItems.length == data.length) {
+                        //console.log(srcPath + "[datacnt]" + data.length);
+                        callback(result);
+                    }
                 });
-            
-            });
+            }
 
-        }
+        });
 
     } else {
         var matchResult = matchFile(srcPath, searchPattern);
         if(matchResult != 0) {
             result.push(srcPath);
-            callback(result);
         }
-
+        callback(result);
     }
-    //return result;
 
 };
 
@@ -62,7 +65,7 @@ exports.searchFileSync = function(srcPath, searchPattern) {
         childPaths.forEach(function(childPath) {
 
             result = result.concat(
-                exports.searchFile(srcPath + childPath, searchPattern));
+                exports.searchFileSync(srcPath + childPath, searchPattern));
         
         });
 
